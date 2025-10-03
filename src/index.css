@@ -1,0 +1,278 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Buysini Professional Wholesale E-commerce Design System */
+
+@layer base {
+  :root {
+    /* Professional Business Color Palette */
+    --background: 0 0% 99%;
+    --foreground: 215 25% 16%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 215 25% 16%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 215 25% 16%;
+
+    /* Professional Blue Primary - Trust & Reliability */
+    --primary: 214 84% 45%;
+    --primary-foreground: 0 0% 100%;
+    --primary-hover: 214 84% 40%;
+
+    /* Warm Accent for CTAs */
+    --accent-warm: 25 95% 53%;
+    --accent-warm-foreground: 0 0% 100%;
+    --accent-warm-hover: 25 95% 48%;
+
+    /* Professional Secondary */
+    --secondary: 214 20% 95%;
+    --secondary-foreground: 215 25% 16%;
+
+    --muted: 214 20% 96%;
+    --muted-foreground: 215 15% 45%;
+
+    --accent: 214 20% 95%;
+    --accent-foreground: 215 25% 16%;
+
+    --destructive: 0 72% 51%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 214 20% 89%;
+    --input: 214 20% 89%;
+    --ring: 214 84% 45%;
+
+    --radius: 0.75rem;
+
+    /* Custom Design Tokens */
+    --gradient-hero: linear-gradient(135deg, hsl(214 84% 45%) 0%, hsl(214 84% 55%) 100%);
+    --gradient-card: linear-gradient(145deg, hsl(0 0% 100%) 0%, hsl(214 20% 98%) 100%);
+    --gradient-warm: linear-gradient(135deg, hsl(25 95% 53%) 0%, hsl(25 95% 63%) 100%);
+    
+    --shadow-soft: 0 4px 20px -4px hsl(214 84% 45% / 0.1);
+    --shadow-card: 0 8px 30px -8px hsl(214 84% 45% / 0.15);
+    --shadow-hero: 0 25px 50px -12px hsl(214 84% 45% / 0.25);
+    
+    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-bouncy: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+
+    /* Professional Spacing */
+    --spacing-section: 6rem;
+    --spacing-content: 2rem;
+
+    --sidebar-background: 0 0% 98%;
+
+    --sidebar-foreground: 240 5.3% 26.1%;
+
+    --sidebar-primary: 240 5.9% 10%;
+
+    --sidebar-primary-foreground: 0 0% 98%;
+
+    --sidebar-accent: 240 4.8% 95.9%;
+
+    --sidebar-accent-foreground: 240 5.9% 10%;
+
+    --sidebar-border: 220 13% 91%;
+
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+
+  .dark {
+    /* Professional Dark Theme */
+    --background: 215 28% 7%;
+    --foreground: 210 40% 98%;
+
+    --card: 215 28% 9%;
+    --card-foreground: 210 40% 98%;
+
+    --popover: 215 28% 9%;
+    --popover-foreground: 210 40% 98%;
+
+    /* Adjusted primary for dark mode */
+    --primary: 214 84% 60%;
+    --primary-foreground: 215 28% 7%;
+    --primary-hover: 214 84% 55%;
+
+    /* Warm accent remains vibrant */
+    --accent-warm: 25 95% 58%;
+    --accent-warm-foreground: 215 28% 7%;
+    --accent-warm-hover: 25 95% 53%;
+
+    --secondary: 215 28% 12%;
+    --secondary-foreground: 210 40% 98%;
+
+    --muted: 215 28% 12%;
+    --muted-foreground: 215 20% 65%;
+
+    --accent: 215 28% 12%;
+    --accent-foreground: 210 40% 98%;
+
+    --destructive: 0 72% 51%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 215 28% 15%;
+    --input: 215 28% 15%;
+    --ring: 214 84% 60%;
+
+    /* Dark mode gradients */
+    --gradient-hero: linear-gradient(135deg, hsl(214 84% 45%) 0%, hsl(214 84% 65%) 100%);
+    --gradient-card: linear-gradient(145deg, hsl(215 28% 9%) 0%, hsl(215 28% 12%) 100%);
+    
+    /* Adjusted shadows for dark mode */
+    --shadow-soft: 0 4px 20px -4px hsl(0 0% 0% / 0.3);
+    --shadow-card: 0 8px 30px -8px hsl(0 0% 0% / 0.4);
+    --shadow-hero: 0 25px 50px -12px hsl(0 0% 0% / 0.5);
+
+    /* Sidebar for dark mode */
+    --sidebar-background: 240 5.9% 10%;
+    --sidebar-foreground: 240 4.8% 95.9%;
+    --sidebar-primary: 224.3 76.3% 48%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 240 3.7% 15.9%;
+    --sidebar-accent-foreground: 240 4.8% 95.9%;
+    --sidebar-border: 240 3.7% 15.9%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    font-feature-settings: 'rlig' 1, 'calt' 1;
+  }
+}
+
+@layer components {
+  /* Professional Button Variants */
+  .btn-hero {
+    @apply bg-gradient-to-r from-[var(--accent-warm)] to-[var(--accent-warm-hover)] text-[var(--accent-warm-foreground)] px-8 py-4 rounded-lg font-semibold shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105;
+  }
+
+  .btn-primary {
+    @apply bg-gradient-to-r from-primary to-[var(--primary-hover)] text-primary-foreground px-6 py-3 rounded-lg font-medium shadow-md hover:shadow-lg transition-all duration-300;
+  }
+
+  .btn-outline {
+    @apply border-2 border-primary text-primary bg-transparent px-6 py-3 rounded-lg font-medium hover:bg-primary hover:text-primary-foreground transition-all duration-300;
+  }
+
+  /* Card Components */
+  .card-elegant {
+    @apply bg-gradient-to-br from-card to-[var(--secondary)] rounded-xl shadow-lg border border-border/50 backdrop-blur-sm;
+  }
+
+  .card-product {
+    @apply card-elegant p-6 hover:shadow-xl transition-all duration-300 hover:-translate-y-1 cursor-pointer;
+  }
+
+  /* Professional Animations */
+  .animate-fade-in-up {
+    animation: fadeInUp 0.6s ease-out forwards;
+  }
+
+  .animate-slide-in-right {
+    animation: slideInRight 0.8s ease-out forwards;
+  }
+
+  .animate-scale-in {
+    animation: scaleIn 0.4s ease-out forwards;
+  }
+
+  /* Hover Effects */
+  .hover-lift {
+    @apply transition-all duration-300 hover:-translate-y-2 hover:shadow-xl;
+  }
+
+  .hover-glow {
+    @apply transition-all duration-300 hover:shadow-[0_0_30px_hsl(var(--primary)/0.3)];
+  }
+}
+
+@layer utilities {
+  /* Custom Gradients */
+  .bg-gradient-hero {
+    background: var(--gradient-hero);
+  }
+
+  .bg-gradient-card {
+    background: var(--gradient-card);
+  }
+
+  .bg-gradient-warm {
+    background: var(--gradient-warm);
+  }
+
+  /* Custom Shadows */
+  .shadow-soft {
+    box-shadow: var(--shadow-soft);
+  }
+
+  .shadow-card {
+    box-shadow: var(--shadow-card);
+  }
+
+  .shadow-hero {
+    box-shadow: var(--shadow-hero);
+  }
+
+  /* Professional Spacing */
+  .section-spacing {
+    padding-top: var(--spacing-section);
+    padding-bottom: var(--spacing-section);
+  }
+
+  .content-spacing {
+    padding: var(--spacing-content);
+  }
+}
+
+/* Professional Keyframes */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes bounce-gentle {
+  0%, 20%, 50%, 80%, 100% {
+    transform: translateY(0);
+  }
+  40% {
+    transform: translateY(-10px);
+  }
+  60% {
+    transform: translateY(-5px);
+  }
+}
