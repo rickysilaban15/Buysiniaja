@@ -3,28 +3,13 @@
   "builds": [
     {
       "src": "package.json",
-      "use": "@vercel/static-build",
-      "config": {
-        "distDir": "dist",
-        "installCommand": "npm install --legacy-peer-deps"
-      }
+      "use": "@vercel/static-build"
     }
   ],
   "routes": [
     {
-      "src": "/assets/(.*)",
-      "headers": {
-        "cache-control": "public, max-age=31536000, immutable"
-      }
-    },
-    {
       "src": "/(.*)",
       "dest": "/index.html"
     }
-  ],
-  "functions": {
-    "app/api/**": {
-      "maxDuration": 10
-    }
-  }
+  ]
 }
