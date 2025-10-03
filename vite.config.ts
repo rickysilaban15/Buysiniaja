@@ -14,8 +14,8 @@ export default defineConfig(({ mode }) => ({
       "@": path.resolve(__dirname, "./src"),
     },
   },
-  // PASTIKAN base path benar
-  base: "./",
+  base: "./", // ← pastikan base path relatif
+
   build: {
     outDir: "dist",
     sourcemap: false,
@@ -29,11 +29,17 @@ export default defineConfig(({ mode }) => ({
           pdf: ["jspdf", "html2canvas"],
           supabase: ["@supabase/supabase-js"],
           router: ["react-router-dom"],
+          utils: ["date-fns", "lodash"],
         },
         chunkFileNames: "assets/[name]-[hash].js",
         entryFileNames: "assets/[name]-[hash].js",
-        assetFileNames: "assets/[name]-[hash].[ext]"
-      }
-    }
-  }
+        assetFileNames: "assets/[name]-[hash].[ext]",
+      },
+    },
+  },
+
+  esbuild: {
+    drop: mode === "production" ? ["console", "debugger"] : [],
+  },
 }));
+  
