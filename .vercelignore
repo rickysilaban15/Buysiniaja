@@ -1,0 +1,11 @@
+# Backend files to exclude from Vercel deployment
+backend/
+supabase/
+node_modules/
+.env
+.env.local
+.env.development
+.php-preview-router.php
+bun.lockb
+*.log
+.DS_Store
