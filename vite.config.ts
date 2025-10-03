@@ -15,33 +15,29 @@ export default defineConfig(({ mode }) => ({
       "@": path.resolve(__dirname, "./src"),
     },
   },
-  build: {
-    outDir: "dist",
-    sourcemap: false, // Disable sourcemaps untuk production
-    minify: "esbuild",
-    chunkSizeWarningLimit: 1000, // Increase warning limit
-    rollupOptions: {
-      output: {
-        manualChunks: {
-          // Pisahkan vendor libraries yang besar
-          vendor: ["react", "react-dom"],
-          ui: ["lucide-react"],
-          // Pisahkan libraries PDF yang sangat besar
-          pdf: ["jspdf", "html2canvas"],
-          // Supabase
-          supabase: ["@supabase/supabase-js"],
-          // React Router
-          router: ["react-router-dom"],
-          // Utility libraries
-          utils: ["date-fns", "lodash"]
-        },
-        // Optimasi chunk naming
-        chunkFileNames: "assets/[name]-[hash].js",
-        entryFileNames: "assets/[name]-[hash].js",
-        assetFileNames: "assets/[name]-[hash].[ext]"
-      }
+ build: {
+  outDir: "dist",
+  base: "./", // ← tambahkan ini
+  sourcemap: false,
+  minify: "esbuild",
+  chunkSizeWarningLimit: 1000,
+  rollupOptions: {
+    output: {
+      manualChunks: {
+        vendor: ["react", "react-dom"],
+        ui: ["lucide-react"],
+        pdf: ["jspdf", "html2canvas"],
+        supabase: ["@supabase/supabase-js"],
+        router: ["react-router-dom"],
+        utils: ["date-fns", "lodash"]
+      },
+      chunkFileNames: "assets/[name]-[hash].js",
+      entryFileNames: "assets/[name]-[hash].js",
+      assetFileNames: "assets/[name]-[hash].[ext]"
     }
-  },
+  }
+},
+
   // Optimasi untuk production
   esbuild: {
     drop: mode === "production" ? ["console", "debugger"] : []
