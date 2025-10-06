@@ -2,21 +2,16 @@
 import { createClient } from '@supabase/supabase-js';
 import type { Database } from './types';
 
-const SUPABASE_URL = import.meta.env.VITE_SUPABASE_URL;
-const SUPABASE_ANON_KEY = import.meta.env.VITE_SUPABASE_ANON_KEY; // <- Ganti ini
+// HARDCODE SOLUSI - ganti dengan values Anda
+const SUPABASE_URL = 'https://onpbszgldatcnnzodmtg.supabase.co';
+const SUPABASE_PUBLISHABLE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im9ucGJzemdsZGF0Y25uem9kbXRnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTkwODU4MzQsImV4cCI6MjA3NDY2MTgzNH0.8re0S7YVwVaoUrtgxZ7eCvxPUkT4eW10OHXpnCJhzNE';
 
-console.log('🔍 Supabase Config Check:', {
-  url: SUPABASE_URL ? '✅ Set' : '❌ Missing',
-  key: SUPABASE_ANON_KEY ? '✅ Set' : '❌ Missing', // <- Dan ini
+console.log('🔍 Supabase Client Initialized:', {
+  url: SUPABASE_URL ? '✅ URL Set' : '❌ URL Missing',
+  key: SUPABASE_PUBLISHABLE_KEY ? '✅ Key Set' : '❌ Key Missing'
 });
 
-if (!SUPABASE_URL || !SUPABASE_ANON_KEY) { // <- Dan ini
-  const errorMsg = 'Missing Supabase environment variables. Please set VITE_SUPABASE_URL and VITE_SUPABASE_ANON_KEY in your environment.';
-  console.error('❌', errorMsg);
-  throw new Error(errorMsg);
-}
-
-export const supabase = createClient<Database>(SUPABASE_URL, SUPABASE_ANON_KEY, { // <- Dan ini
+export const supabase = createClient<Database>(SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY, {
   auth: {
     storage: localStorage,
     persistSession: true,
