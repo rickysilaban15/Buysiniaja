@@ -29,11 +29,10 @@
   <body>
     <div id="root"></div>
     
-    <!-- Load aplikasi React -->
+    <!-- Load aplikasi React saja -->
     <script type="module" src="/src/main.tsx"></script>
     
-    <!-- Load global exports -->
-    <script type="module" src="/src/utils/global-exports.js"></script>
+    <!-- HAPUS global-exports.js dari sini -->
     
     <!-- Load Midtrans SETELAH semuanya selesai -->
     <script>
@@ -50,7 +49,6 @@
           script.onload = function() {
             console.log('✅ Midtrans Snap loaded successfully')
             console.log('🎉 Application fully ready!')
-            console.log('Available: window.supabase, window.snap')
           }
           script.onerror = function() {
             console.error('❌ Failed to load Midtrans Snap')
