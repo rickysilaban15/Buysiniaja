@@ -24,13 +24,15 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    
+    <!-- Load Midtrans -->
+    <script src="https://app.sandbox.midtrans.com/snap/snap.js" data-client-key="SB-Mid-client-Yi19OPLDp2UQWy0J"></script>
   </head>
 
   <body>
     <div id="root"></div>
-    
 
-    <!-- LOAD SUPABASE DARI CDN - SATU-SATUNYA TEMPAT INISIALISASI -->
+    <!-- Load Supabase dari CDN -->
     <script type="module">
       console.log('🚀 Loading Supabase from CDN...');
       
@@ -52,12 +54,11 @@
             }
           );
           
-          // Simpan di window sebagai satu-satunya instance
+          // Simpan di window
           window.supabase = supabase;
           window._supabaseReady = true;
           
           console.log('✅ Supabase initialized successfully!');
-          console.log('🌐 Available at window.supabase');
           
           // Test connection
           const { data, error } = await supabase.from('products').select('id').limit(1);
@@ -73,55 +74,15 @@
         }
       }
       
-      // Jalankan initialization
+      // Initialize Supabase
       initializeSupabase();
     </script>
     
     <!-- Load aplikasi React -->
     <script type="module" src="/src/main.tsx"></script>
-    
-    <!-- Load Midtrans -->
-    <script>
-      window.addEventListener('load', function() {
-        setTimeout(function() {
-          console.log('🔄 Loading Midtrans Snap...');
-          const script = document.createElement('script');
-          script.src = 'https://app.sandbox.midtrans.com/snap/snap.js';
-          script.setAttribute('data-client-key', 'SB-Mid-client-Yi19OPLDp2UQWy0J');
-          script.onload = function() {
-            console.log('✅ Midtrans Snap loaded');
-          };
-          document.head.appendChild(script);
-        }, 1000);
-      });
 
-    <!-- Load aplikasi React saja -->
-    <script type="module" src="/src/main.tsx"></script>
-    
-    <!-- HAPUS global-exports.js dari sini -->
-    
-    <!-- Load Midtrans SETELAH semuanya selesai -->
     <script>
-      // Tunggu sampai semua resource selesai load
-      window.addEventListener('load', function() {
-        console.log('🎯 All resources loaded, initializing payment...')
-        
-        // Delay sedikit untuk pastikan Supabase sudah ready
-        setTimeout(function() {
-          console.log('🔄 Loading Midtrans Snap...')
-          const script = document.createElement('script')
-          script.src = 'https://app.sandbox.midtrans.com/snap/snap.js'
-          script.setAttribute('data-client-key', 'SB-Mid-client-Yi19OPLDp2UQWy0J')
-          script.onload = function() {
-            console.log('✅ Midtrans Snap loaded successfully')
-            console.log('🎉 Application fully ready!')
-          }
-          script.onerror = function() {
-            console.error('❌ Failed to load Midtrans Snap')
-          }
-          document.head.appendChild(script)
-        }, 1000) // Delay 1 detik
-      })
+      console.log('🎯 Application starting...');
     </script>
   </body>
 </html>
