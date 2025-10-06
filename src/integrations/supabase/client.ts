@@ -2,22 +2,31 @@
 import { createClient } from '@supabase/supabase-js';
 import type { Database } from './types';
 
+// Gunakan VITE_SUPABASE_ANON_KEY bukan VITE_SUPABASE_PUBLISHABLE_KEY
 const SUPABASE_URL = import.meta.env.VITE_SUPABASE_URL;
 const SUPABASE_ANON_KEY = import.meta.env.VITE_SUPABASE_ANON_KEY;
 
-// Fallback ke hardcode jika env variables tidak ada
-const finalUrl = SUPABASE_URL || 'https://onpbszgldatcnnzodmtg.supabase.co';
-const finalKey = SUPABASE_ANON_KEY || 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im9ucGJzemdsZGF0Y25uem9kbXRnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTkwODU4MzQsImV4cCI6MjA3NDY2MTgzNH0.8re0S7YVwVaoUrtgxZ7eCvxPUkT4eW10OHXpnCJhzNE';
-
-console.log('🔍 Environment Status:', {
-  envUrl: SUPABASE_URL ? 'SET' : 'MISSING',
-  envKey: SUPABASE_ANON_KEY ? 'SET' : 'MISSING',
-  usingFallback: !SUPABASE_URL || !SUPABASE_ANON_KEY
+console.log('🔍 Environment Check:', {
+  url: SUPABASE_URL ? '✅ SET' : '❌ MISSING',
+  key: SUPABASE_ANON_KEY ? '✅ SET' : '❌ MISSING',
+  keyType: SUPABASE_ANON_KEY?.includes('service_role') ? '❌ SERVICE ROLE' : '✅ ANON KEY'
 });
 
-export const supabase = createClient<Database>(finalUrl, finalKey, {
+// Validasi ketat
+if (!SUPABASE_URL) {
+  throw new Error('VITE_SUPABASE_URL is required');
+}
+
+if (!SUPABASE_ANON_KEY) {
+  throw new Error('VITE_SUPABASE_ANON_KEY is required');
+}
+
+if (SUPABASE_ANON_KEY.includes('service_role')) {
+  throw new Error('SECURITY ERROR: Service role key detected in client-side code! Use anon key only.');
+}
+
+export const supabase = createClient<Database>(SUPABASE_URL, SUPABASE_ANON_KEY, {
   auth: {
-    storage: localStorage,
     persistSession: true,
     autoRefreshToken: true,
   }
