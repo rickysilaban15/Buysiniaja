@@ -1,6 +1,11 @@
+// src/App.tsx
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { CartProvider } from './hooks/cart-context';
-import ScrollToTop from './components/ScrollToTop'; // ✅ IMPORT ScrollToTop
+import ScrollToTop from './components/ScrollToTop';
+import { useEffect } from 'react';
+
+// ✅ IMPORT SUPABASE
+import supabase from './lib/supabase';
 
 // Public Pages
 import Index from './pages/Index';
@@ -31,10 +36,7 @@ import PaymentShippingLogos from './pages/PaymentShippingLogos';
 import Invoice from './pages/Invoice';
 import PaymentCallback from './pages/PaymentCallback';
 
-
-
-
-// admin pages
+// Admin Pages
 import AdminLayout from './components/AdminLayout';
 import AdminLogin from './pages/admin/Login';
 import AdminDashboard from './pages/admin/Dashboard';
@@ -71,6 +73,33 @@ const ProtectedRoute: React.FC<{ children: React.ReactNode }> = ({ children }) =
 };
 
 export default function App() {
+  // ✅ TEST SUPABASE CONNECTION PADA APP START
+  useEffect(() => {
+    const testSupabaseConnection = async () => {
+      try {
+        console.log('🔌 Testing Supabase connection...');
+        
+        // Test query sederhana
+        const { data, error } = await supabase
+          .from('products')
+          .select('id, name')
+          .limit(1);
+
+        if (error) {
+          console.error('❌ Supabase connection failed:', error.message);
+        } else {
+          console.log('✅ Supabase connected successfully!', {
+            dataCount: data?.length || 0
+          });
+        }
+      } catch (err) {
+        console.error('❌ Supabase test error:', err);
+      }
+    };
+
+    testSupabaseConnection();
+  }, []);
+
   return (
     <CartProvider>
       <BrowserRouter>
@@ -102,7 +131,6 @@ export default function App() {
           <Route path="/payment-shipping-logos" element={<PaymentShippingLogos />} />
           <Route path="/invoice" element={<Invoice />} />
           <Route path="/payment-callback" element={<PaymentCallback />} />
-      
 
           {/* Admin Login (outside layout) */}
           <Route path="/admin/login" element={<AdminLogin />} />
@@ -134,7 +162,7 @@ export default function App() {
           <Route path="*" element={<NotFound />} />
         </Routes>
         
-        {/* ✅ TAMBAHKAN SCROLLTOTOP DI SINI - DI LUAR ROUTES */}
+        {/* ✅ SCROLLTOTOP */}
         <ScrollToTop />
       </BrowserRouter>
     </CartProvider>
