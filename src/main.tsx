@@ -3,21 +3,18 @@ import { createRoot } from "react-dom/client";
 import App from "./App.tsx";
 import "./index.css";
 import { StrictMode } from "react";
-import supabase from './lib/supabase-client.js'; // STATIC IMPORT
+import supabase from './lib/supabase-client'; // STATIC IMPORT
 
 console.log('🎯 Starting Buysini application...');
 
-// Test Supabase connection langsung
+// Test connection langsung
 supabase.from('products').select('id').limit(1)
   .then(({ data, error }) => {
     if (error) {
       console.error('❌ Supabase test failed:', error);
     } else {
-      console.log('✅ Supabase connected!');
+      console.log('✅ Supabase connected! Data:', data);
     }
-  })
-  .catch(error => {
-    console.error('💥 Supabase error:', error);
   });
 
 createRoot(document.getElementById("root")!).render(
