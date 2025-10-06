@@ -4,85 +4,28 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Buysini Yuk Belanja Disini</title>
-    <meta name="description" content="Buysini adalah platform grosir online terpercaya dengan 500+ produk berkualitas. Jajanan, oleh-oleh, bahan makanan, dan produk grosir lainnya dengan harga terbaik. Gratis ongkir seluruh Indonesia!" />
-    <meta name="author" content="Buysini" />
-    <meta name="keywords" content="grosir, wholesale, jajanan, oleh-oleh, bahan makanan, minuman, grosir online, harga grosir, distributor" />
-    <link rel="icon" type="image/png" href="/favicon1.ico" />
-
-    <meta property="og:title" content="Buysini - Buysini - Yuk Belanja Disini" />
-    <meta property="og:description" content="Dapatkan produk grosir berkualitas dengan harga terbaik. 500+ pilihan produk dari jajanan, oleh-oleh, hingga bahan makanan. Dipercaya 1000+ pelanggan di Indonesia." />
-    <meta property="og:type" content="website" />
-    <meta property="og:image" content="https://buysini.com/logo-og.png" />
-    <meta name="twitter:image" content="https://buysini.com/logo-og.png" />
-
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="Buysini - Yuk Belanja Disini" />
-    <meta name="twitter:description" content="Dapatkan produk grosir berkualitas dengan harga terbaik. 500+ pilihan produk untuk bisnis Anda." />
-    <meta name="twitter:image" content="https://buysini.com/logo-og.png" />
-
+    <meta name="description" content="Buysini adalah platform grosir online terpercaya dengan 500+ produk berkualitas." />
+    
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
     
-    <!-- Load Midtrans -->
+    <!-- Midtrans -->
     <script src="https://app.sandbox.midtrans.com/snap/snap.js" data-client-key="SB-Mid-client-Yi19OPLDp2UQWy0J"></script>
   </head>
 
   <body>
-    <div id="root"></div>
+    <div id="root">
+      <div style="display: flex; justify-content: center; align-items: center; height: 100vh; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white;">
+        <div style="text-align: center;">
+          <h1 style="font-size: 2.5rem; margin-bottom: 1rem;">Buysini</h1>
+          <p style="font-size: 1.2rem;">Loading...</p>
+        </div>
+      </div>
+    </div>
 
-    <!-- Load Supabase dari CDN -->
-    <script type="module">
-      console.log('🚀 Loading Supabase from CDN...');
-      
-      async function initializeSupabase() {
-        try {
-          // Import dari CDN
-          const { createClient } = await import('https://esm.sh/@supabase/supabase-js@2');
-          
-          // Buat client dengan credentials
-          const supabase = createClient(
-            'https://onpbszgldatcnnzodmtg.supabase.co',
-            'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im9ucGJzemdsZGF0Y25uem9kbXRnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTkwODU4MzQsImV4cCI6MjA3NDY2MTgzNH0.8re0S7YVwVaoUrtgxZ7eCvxPUkT4eW10OHXpnCJhzNE',
-            {
-              auth: {
-                persistSession: true,
-                autoRefreshToken: true,
-                detectSessionInUrl: false
-              }
-            }
-          );
-          
-          // Simpan di window
-          window.supabase = supabase;
-          window._supabaseReady = true;
-          
-          console.log('✅ Supabase initialized successfully!');
-          
-          // Test connection
-          const { data, error } = await supabase.from('products').select('id').limit(1);
-          if (error) {
-            console.error('❌ Supabase test failed:', error);
-          } else {
-            console.log('✅ Supabase test successful!');
-          }
-          
-        } catch (error) {
-          console.error('💥 Failed to initialize Supabase:', error);
-          window._supabaseError = error;
-        }
-      }
-      
-      // Initialize Supabase
-      initializeSupabase();
-    </script>
-    
-    <!-- Load aplikasi React -->
+    <!-- ✅ HANYA SATU script type="module" -->
     <script type="module" src="/src/main.tsx"></script>
-
-    <script>
-      console.log('🎯 Application starting...');
-    </script>
   </body>
 </html>
