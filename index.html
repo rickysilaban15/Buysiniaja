@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Buysini  Yuk Belanja Disini</title>
+    <title>Buysini Yuk Belanja Disini</title>
     <meta name="description" content="Buysini adalah platform grosir online terpercaya dengan 500+ produk berkualitas. Jajanan, oleh-oleh, bahan makanan, dan produk grosir lainnya dengan harga terbaik. Gratis ongkir seluruh Indonesia!" />
     <meta name="author" content="Buysini" />
     <meta name="keywords" content="grosir, wholesale, jajanan, oleh-oleh, bahan makanan, minuman, grosir online, harga grosir, distributor" />
@@ -15,7 +15,6 @@
     <meta property="og:image" content="https://buysini.com/logo-og.png" />
     <meta name="twitter:image" content="https://buysini.com/logo-og.png" />
 
-
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="Buysini - Yuk Belanja Disini" />
     <meta name="twitter:description" content="Dapatkan produk grosir berkualitas dengan harga terbaik. 500+ pilihan produk untuk bisnis Anda." />
@@ -26,18 +25,31 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
 
-    <!-- MIDTRANS SNAP (Sandbox) - GANTI data-client-key dengan Client Key kamu -->
-   <script
-  type="text/javascript"
-  src="https://app.sandbox.midtrans.com/snap/snap.js"
-  data-client-key="SB-Mid-client-Yi19OPLDp2UQWy0J">
-</script>
-
-
+    <!-- HAPUS MIDTRANS SCRIPT DARI HEAD -->
   </head>
 
   <body>
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
+    
+    <!-- LOAD MIDTRANS SETELAH APLIKASI BERJALAN -->
+    <script>
+      // Tunggu sampai aplikasi React selesai load
+      window.addEventListener('load', function() {
+        setTimeout(function() {
+          console.log('🔄 Loading Midtrans Snap...');
+          const script = document.createElement('script');
+          script.src = 'https://app.sandbox.midtrans.com/snap/snap.js';
+          script.setAttribute('data-client-key', 'SB-Mid-client-Yi19OPLDp2UQWy0J');
+          script.onload = function() {
+            console.log('✅ Midtrans Snap loaded successfully');
+          };
+          script.onerror = function() {
+            console.error('❌ Failed to load Midtrans Snap');
+          };
+          document.head.appendChild(script);
+        }, 2000); // Delay 2 detik
+      });
+    </script>
   </body>
 </html>
