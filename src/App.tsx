@@ -1,6 +1,7 @@
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { CartProvider } from './hooks/cart-context';
-import ScrollToTop from './components/ScrollToTop'; // ✅ IMPORT ScrollToTop
+import ScrollToTop from './components/ScrollToTop';
+import { useEffect, useState } from 'react';
 
 // Public Pages
 import Index from './pages/Index';
@@ -31,10 +32,7 @@ import PaymentShippingLogos from './pages/PaymentShippingLogos';
 import Invoice from './pages/Invoice';
 import PaymentCallback from './pages/PaymentCallback';
 
-
-
-
-// admin pages
+// Admin Pages
 import AdminLayout from './components/AdminLayout';
 import AdminLogin from './pages/admin/Login';
 import AdminDashboard from './pages/admin/Dashboard';
@@ -125,7 +123,7 @@ export default function App() {
       </div>
     );
   }
-  
+
   return (
     <CartProvider>
       <BrowserRouter>
@@ -157,12 +155,9 @@ export default function App() {
           <Route path="/payment-shipping-logos" element={<PaymentShippingLogos />} />
           <Route path="/invoice" element={<Invoice />} />
           <Route path="/payment-callback" element={<PaymentCallback />} />
-      
 
-          {/* Admin Login (outside layout) */}
+          {/* Admin Routes */}
           <Route path="/admin/login" element={<AdminLogin />} />
-          
-          {/* Admin Routes with Layout */}
           <Route 
             path="/admin" 
             element={
@@ -185,11 +180,9 @@ export default function App() {
             <Route path="settings" element={<AdminSettings />} />
           </Route>
           
-          {/* 404 */}
           <Route path="*" element={<NotFound />} />
         </Routes>
         
-        {/* ✅ TAMBAHKAN SCROLLTOTOP DI SINI - DI LUAR ROUTES */}
         <ScrollToTop />
       </BrowserRouter>
     </CartProvider>

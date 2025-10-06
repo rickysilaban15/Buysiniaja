@@ -29,6 +29,7 @@
   <body>
     <div id="root"></div>
     
+
     <!-- LOAD SUPABASE DARI CDN - SATU-SATUNYA TEMPAT INISIALISASI -->
     <script type="module">
       console.log('🚀 Loading Supabase from CDN...');
@@ -93,6 +94,34 @@
           document.head.appendChild(script);
         }, 1000);
       });
+
+    <!-- Load aplikasi React saja -->
+    <script type="module" src="/src/main.tsx"></script>
+    
+    <!-- HAPUS global-exports.js dari sini -->
+    
+    <!-- Load Midtrans SETELAH semuanya selesai -->
+    <script>
+      // Tunggu sampai semua resource selesai load
+      window.addEventListener('load', function() {
+        console.log('🎯 All resources loaded, initializing payment...')
+        
+        // Delay sedikit untuk pastikan Supabase sudah ready
+        setTimeout(function() {
+          console.log('🔄 Loading Midtrans Snap...')
+          const script = document.createElement('script')
+          script.src = 'https://app.sandbox.midtrans.com/snap/snap.js'
+          script.setAttribute('data-client-key', 'SB-Mid-client-Yi19OPLDp2UQWy0J')
+          script.onload = function() {
+            console.log('✅ Midtrans Snap loaded successfully')
+            console.log('🎉 Application fully ready!')
+          }
+          script.onerror = function() {
+            console.error('❌ Failed to load Midtrans Snap')
+          }
+          document.head.appendChild(script)
+        }, 1000) // Delay 1 detik
+      })
     </script>
   </body>
 </html>
