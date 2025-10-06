@@ -23,10 +23,34 @@ try {
   })
   console.log('✅ Supabase client created successfully!')
   
-  // ✅ EXPORT KE WINDOW UNTUK TESTING DI CONSOLE
+  // ✅ AUTO-EXPORT KE WINDOW
   if (typeof window !== 'undefined') {
     window.supabase = supabaseInstance
+    
+    // Tambahkan test function langsung
+    window.testSupabase = async () => {
+      console.log('🧪 Testing Supabase connection...')
+      try {
+        const { data, error } = await supabaseInstance
+          .from('products')
+          .select('id, name, price')
+          .limit(2)
+        
+        if (error) {
+          console.error('❌ Supabase test failed:', error)
+          return { success: false, error }
+        }
+        
+        console.log('✅ Supabase test successful! Data:', data)
+        return { success: true, data }
+      } catch (err) {
+        console.error('💥 Supabase test error:', err)
+        return { success: false, error: err }
+      }
+    }
+    
     console.log('🌐 Supabase exported to window.supabase')
+    console.log('🔧 Test function: testSupabase()')
   }
   
 } catch (error) {
