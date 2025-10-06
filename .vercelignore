@@ -1,6 +1,7 @@
 # Backend files to exclude from Vercel deployment
 backend/
-supabase/
+# Allow Supabase client in src/
+!/src/integrations/supabase/
 node_modules/
 .env
 .env.local
