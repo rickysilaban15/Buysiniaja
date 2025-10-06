@@ -12,7 +12,11 @@ console.log('🔍 Supabase Config Check:', {
   key: SUPABASE_PUBLISHABLE_KEY ? '✅ Set' : '❌ Missing',
   hasWindow: typeof window !== 'undefined',
   hasDocument: typeof document !== 'undefined'
+  
 });
+
+console.log("ENV:", import.meta.env);
+
 
 if (!SUPABASE_URL || !SUPABASE_PUBLISHABLE_KEY) {
   const errorMsg = 'Missing Supabase environment variables. Please set VITE_SUPABASE_URL and VITE_SUPABASE_PUBLISHABLE_KEY in your environment.';
