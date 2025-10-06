@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Buysini  Yuk Belanja Disini</title>
+    <title>Buysini Yuk Belanja Disini</title>
     <meta name="description" content="Buysini adalah platform grosir online terpercaya dengan 500+ produk berkualitas. Jajanan, oleh-oleh, bahan makanan, dan produk grosir lainnya dengan harga terbaik. Gratis ongkir seluruh Indonesia!" />
     <meta name="author" content="Buysini" />
     <meta name="keywords" content="grosir, wholesale, jajanan, oleh-oleh, bahan makanan, minuman, grosir online, harga grosir, distributor" />
@@ -15,29 +15,84 @@
     <meta property="og:image" content="https://buysini.com/logo-og.png" />
     <meta name="twitter:image" content="https://buysini.com/logo-og.png" />
 
-
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="Buysini - Yuk Belanja Disini" />
     <meta name="twitter:description" content="Dapatkan produk grosir berkualitas dengan harga terbaik. 500+ pilihan produk untuk bisnis Anda." />
     <meta name="twitter:image" content="https://buysini.com/logo-og.png" />
 
-    <!-- Optional: Google Fonts for nicer headings -->
+    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
-
-    <!-- MIDTRANS SNAP (Sandbox) - GANTI data-client-key dengan Client Key kamu -->
-   <script
-  type="text/javascript"
-  src="https://app.sandbox.midtrans.com/snap/snap.js"
-  data-client-key="SB-Mid-client-Yi19OPLDp2UQWy0J">
-</script>
-
-
   </head>
 
   <body>
     <div id="root"></div>
+    
+    <!-- LOAD SUPABASE DARI CDN - SATU-SATUNYA TEMPAT INISIALISASI -->
+    <script type="module">
+      console.log('🚀 Loading Supabase from CDN...');
+      
+      async function initializeSupabase() {
+        try {
+          // Import dari CDN
+          const { createClient } = await import('https://esm.sh/@supabase/supabase-js@2');
+          
+          // Buat client dengan credentials
+          const supabase = createClient(
+            'https://onpbszgldatcnnzodmtg.supabase.co',
+            'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im9ucGJzemdsZGF0Y25uem9kbXRnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTkwODU4MzQsImV4cCI6MjA3NDY2MTgzNH0.8re0S7YVwVaoUrtgxZ7eCvxPUkT4eW10OHXpnCJhzNE',
+            {
+              auth: {
+                persistSession: true,
+                autoRefreshToken: true,
+                detectSessionInUrl: false
+              }
+            }
+          );
+          
+          // Simpan di window sebagai satu-satunya instance
+          window.supabase = supabase;
+          window._supabaseReady = true;
+          
+          console.log('✅ Supabase initialized successfully!');
+          console.log('🌐 Available at window.supabase');
+          
+          // Test connection
+          const { data, error } = await supabase.from('products').select('id').limit(1);
+          if (error) {
+            console.error('❌ Supabase test failed:', error);
+          } else {
+            console.log('✅ Supabase test successful!');
+          }
+          
+        } catch (error) {
+          console.error('💥 Failed to initialize Supabase:', error);
+          window._supabaseError = error;
+        }
+      }
+      
+      // Jalankan initialization
+      initializeSupabase();
+    </script>
+    
+    <!-- Load aplikasi React -->
     <script type="module" src="/src/main.tsx"></script>
+    
+    <!-- Load Midtrans -->
+    <script>
+      window.addEventListener('load', function() {
+        setTimeout(function() {
+          console.log('🔄 Loading Midtrans Snap...');
+          const script = document.createElement('script');
+          script.src = 'https://app.sandbox.midtrans.com/snap/snap.js';
+          script.setAttribute('data-client-key', 'SB-Mid-client-Yi19OPLDp2UQWy0J');
+          script.onload = function() {
+            console.log('✅ Midtrans Snap loaded');
+          };
+          document.head.appendChild(script);
+        }, 1000);
+      });
+    </script>
   </body>
 </html>

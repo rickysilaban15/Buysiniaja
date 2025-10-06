@@ -71,6 +71,61 @@ const ProtectedRoute: React.FC<{ children: React.ReactNode }> = ({ children }) =
 };
 
 export default function App() {
+  const [appReady, setAppReady] = useState(false);
+
+  useEffect(() => {
+    console.log('🔌 APP: Checking environment...');
+    
+    const initializeApp = async () => {
+      try {
+        // Gunakan window.supabase yang sudah di-load dari CDN
+        if (!window.supabase) {
+          console.warn('⚠️ Supabase not yet available, waiting...');
+          setTimeout(initializeApp, 100);
+          return;
+        }
+
+        console.log('📡 Testing Supabase connection...');
+        
+        const { data, error } = await window.supabase
+          .from('products')
+          .select('id')
+          .limit(1);
+
+        if (error) {
+          console.error('❌ Supabase test failed:', error.message);
+        } else {
+          console.log('✅ Supabase connected successfully!');
+        }
+        
+        setAppReady(true);
+      } catch (err) {
+        console.error('💥 App initialization error:', err);
+        setAppReady(true); // Tetap lanjut meski error
+      }
+    };
+
+    initializeApp();
+  }, []);
+
+  // Loading state
+  if (!appReady) {
+    return (
+      <div style={{
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        height: '100vh',
+        flexDirection: 'column'
+      }}>
+        <div>Loading Buysini...</div>
+        <div style={{ fontSize: '14px', color: '#666', marginTop: '10px' }}>
+          {window.supabase ? 'Testing database connection...' : 'Initializing application...'}
+        </div>
+      </div>
+    );
+  }
+  
   return (
     <CartProvider>
       <BrowserRouter>
