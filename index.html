@@ -20,36 +20,44 @@
     <meta name="twitter:description" content="Dapatkan produk grosir berkualitas dengan harga terbaik. 500+ pilihan produk untuk bisnis Anda." />
     <meta name="twitter:image" content="https://buysini.com/logo-og.png" />
 
-    <!-- Optional: Google Fonts for nicer headings -->
+    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
-
-    <!-- HAPUS MIDTRANS SCRIPT DARI HEAD -->
   </head>
 
   <body>
     <div id="root"></div>
+    
+    <!-- Load aplikasi React -->
     <script type="module" src="/src/main.tsx"></script>
     
-    <!-- LOAD MIDTRANS SETELAH APLIKASI BERJALAN -->
+    <!-- Load global exports -->
+    <script type="module" src="/src/utils/global-exports.js"></script>
+    
+    <!-- Load Midtrans SETELAH semuanya selesai -->
     <script>
-      // Tunggu sampai aplikasi React selesai load
+      // Tunggu sampai semua resource selesai load
       window.addEventListener('load', function() {
+        console.log('🎯 All resources loaded, initializing payment...')
+        
+        // Delay sedikit untuk pastikan Supabase sudah ready
         setTimeout(function() {
-          console.log('🔄 Loading Midtrans Snap...');
-          const script = document.createElement('script');
-          script.src = 'https://app.sandbox.midtrans.com/snap/snap.js';
-          script.setAttribute('data-client-key', 'SB-Mid-client-Yi19OPLDp2UQWy0J');
+          console.log('🔄 Loading Midtrans Snap...')
+          const script = document.createElement('script')
+          script.src = 'https://app.sandbox.midtrans.com/snap/snap.js'
+          script.setAttribute('data-client-key', 'SB-Mid-client-Yi19OPLDp2UQWy0J')
           script.onload = function() {
-            console.log('✅ Midtrans Snap loaded successfully');
-          };
+            console.log('✅ Midtrans Snap loaded successfully')
+            console.log('🎉 Application fully ready!')
+            console.log('Available: window.supabase, window.snap')
+          }
           script.onerror = function() {
-            console.error('❌ Failed to load Midtrans Snap');
-          };
-          document.head.appendChild(script);
-        }, 2000); // Delay 2 detik
-      });
+            console.error('❌ Failed to load Midtrans Snap')
+          }
+          document.head.appendChild(script)
+        }, 1000) // Delay 1 detik
+      })
     </script>
   </body>
 </html>
